@@ -1,7 +1,7 @@
 ## Health token
 
-[攻击交易](https://bscscan.com/tx/0xae8ca9dc8258ae32899fe641985739c3fa53ab1f603973ac74b424e165c66ccf)
-[health contract](https://bscscan.com/token/0x32b166e082993af6598a89397e82e123ca44e74e?a=0x32b166e082993af6598a89397e82e123ca44e74e#code)
+[攻击交易](https://bscscan.com/tx/0xae8ca9dc8258ae32899fe641985739c3fa53ab1f603973ac74b424e165c66ccf)\
+[合约地址](https://bscscan.com/token/0x32b166e082993af6598a89397e82e123ca44e74e?a=0x32b166e082993af6598a89397e82e123ca44e74e#code)
 
 ### 攻击分析
 
@@ -11,7 +11,7 @@
 
 `transfer`判断发起者不是从`pair`(池子)的话，就触发销毁机制。调用利用的是转账多次额度为0触发销毁。
 
-```
+```ts
 if (block.timestamp >= pairStartTime.add(jgTime) && pairStartTime != 0) {
     //  如果发起地址不pair合约。不是从池子中交易的话。
     if (from != uniswapV2Pair) {
@@ -37,6 +37,6 @@ hh run examples/HealthToken/HealthToken.ts
 ```
 ### 漏洞修复
 
-```
+```ts
 if (to == uniswapV2Pair)//  只有接受者为pair的时候再去触发销毁机制。
 ```
